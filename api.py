@@ -1,5 +1,3 @@
-# %%writefile api.py
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from summarization import SummaryModel, create_summary_template, generate_summary

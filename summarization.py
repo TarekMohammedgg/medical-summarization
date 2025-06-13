@@ -1,5 +1,3 @@
-# %%writefile summarization.py
-
 from pydantic import BaseModel, Field
 from typing import List
 import json
@@ -65,7 +63,6 @@ def generate_summary(message: List[dict], tokenizer: PreTrainedTokenizer, model:
     Returns:
         Parsed JSON summary
     """
-    # Tokenize input
     input_ids = tokenizer.apply_chat_template(
         message,
         tokenize=True,
@@ -73,7 +70,6 @@ def generate_summary(message: List[dict], tokenizer: PreTrainedTokenizer, model:
         return_tensors="pt",
     ).to(model.device)
     
-    # Generate output
     gen_tokens = model.generate(
         input_ids,
         max_new_tokens=max_new_tokens,
@@ -81,14 +77,11 @@ def generate_summary(message: List[dict], tokenizer: PreTrainedTokenizer, model:
         temperature=None,
     )
     
-    # Extract generated tokens
     gen_tokens = [output_ids[len(input_ids):] for input_ids, output_ids in zip(input_ids, gen_tokens)]
     
-    # Decode and clean output
     gen_text = tokenizer.decode(gen_tokens[0])
     gen_text = gen_text.replace("<|END_RESPONSE|>", "").replace("<|END_OF_TURN_TOKEN|>", "").replace("```", "").strip()
     
-    # Extract JSON block
     match = re.search(r'\{.*?\}', gen_text, re.DOTALL)
     if not match:
         raise ValueError("No JSON block found in model output")

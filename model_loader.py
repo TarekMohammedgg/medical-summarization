@@ -1,5 +1,3 @@
-# %%writefile model_loader.py
-
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 import torch
 import warnings
@@ -26,10 +24,8 @@ def load_quantized_model(
     Returns:
         Tuple of (model, tokenizer)
     """
-    # Suppress deprecated warning for use_auth_token
     warnings.filterwarnings("ignore", category=FutureWarning, module="transformers.models.auto.tokenization_auto")
     
-    # Configure quantization
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=load_in_4bit,
         bnb_4bit_use_double_quant=use_double_quant,
@@ -37,11 +33,9 @@ def load_quantized_model(
         bnb_4bit_compute_dtype=compute_dtype,
     )
     
-    # Set memory limits for GPUs
     n_gpus = torch.cuda.device_count()
     max_memory = {i: "40960MB" for i in range(n_gpus)}
     
-    # Load model
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         quantization_config=bnb_config,
@@ -50,7 +44,6 @@ def load_quantized_model(
         token=auth_token
     )
     
-    # Load tokenizer
     tokenizer = AutoTokenizer.from_pretrained(model_name, token=auth_token)
     tokenizer.pad_token = tokenizer.eos_token
     

@@ -1,5 +1,3 @@
-# %%writefile utils.py
-
 import torch
 
 def clear_gpu_cache():
