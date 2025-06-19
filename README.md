@@ -20,7 +20,7 @@ This project provides a REST API for summarizing medical conversations. It loads
 1. Clone the repository.
 
 ```bash
-git clone <https://github.com/TarekMohammedgg/medical-summarization>
+git clone https://github.com/TarekMohammedgg/medical-summarization
 cd medical-summarization
 ```
 
