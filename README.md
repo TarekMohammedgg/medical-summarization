@@ -41,16 +41,15 @@
  ## Installation
  
 -1. Clone the repository.
-+Clone the repository and install the packages:
  
  ```bash
  git clone https://github.com/TarekMohammedgg/medical-summarization
  cd medical-summarization
--```
--
+```
+
 -2. Install the required packages:
--
--```bash
+
+```bash
  pip install -r requirements.txt
  ```
  
