@@ -93,7 +93,11 @@
  
 -The API returns a JSON summary according to the schema defined in `SummaryModel`.
 +The response is a JSON object describing the conversation details using the schema defined in `SummaryModel`.
-+
+```json
+{ "Patient_symptoms": [ "Intense itch in left shoulder", "Mild pain that increased in the last few days", "Redness due to scratching" ], "Symptom_location": "Left shoulder", "Duration": "About a week", "Symptom_progression": "Mild pain at first, increased in the last few days", "Risk_factors": "Fish consumption, family history of seafood allergy" }
+```
+
+
 +## How it works
 +
 +1. **`summarization.py`**
